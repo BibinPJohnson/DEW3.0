@@ -16,12 +16,6 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
-    role: Role;
-    'product-designs': ProductDesign;
-    cadDesigns: CadDesign;
-    sideBar: SideBar;
-    concepts: Concept;
-    sketches: Sketch;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -37,12 +31,6 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    role: RoleSelect<false> | RoleSelect<true>;
-    'product-designs': ProductDesignsSelect<false> | ProductDesignsSelect<true>;
-    cadDesigns: CadDesignsSelect<false> | CadDesignsSelect<true>;
-    sideBar: SideBarSelect<false> | SideBarSelect<true>;
-    concepts: ConceptsSelect<false> | ConceptsSelect<true>;
-    sketches: SketchesSelect<false> | SketchesSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -219,6 +207,14 @@ export interface Media {
       filename?: string | null;
     };
     xlarge?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    og?: {
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -626,195 +622,6 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "role".
- */
-export interface Role {
-  id: number;
-  name: string;
-  netsuite_id?: number | null;
-  description?: string | null;
-  sideBarNavigations?: (number | SideBar)[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sideBar".
- */
-export interface SideBar {
-  id: number;
-  name: string;
-  link: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "product-designs".
- */
-export interface ProductDesign {
-  id: string;
-  name: string;
-  description?: string | null;
-  prodstatus: 'initiated' | 'in_progress' | 'completed' | 'approved';
-  assigned_sketcher_id?: number | null;
-  assigned_designer_id?: number | null;
-  sketcher_notes?: string | null;
-  designer_notes?: string | null;
-  approval_notes?: string | null;
-  approved_by?: number | null;
-  netsuite_item_id: number;
-  collection_id?: number | null;
-  collectiongroup_name?: string | null;
-  category_name?: string | null;
-  subcategory_name?: string | null;
-  brand_name?: string | null;
-  style_name?: string | null;
-  occasion?: string | null;
-  request_type: 'concept' | 'product_design';
-  metal_type?: string | null;
-  metal_color?: string | null;
-  size?: string | null;
-  expected_gross_wt?: number | null;
-  expected_net_wt?: number | null;
-  diamond_range?: string | null;
-  color_stone_range?: string | null;
-  priority?: string | null;
-  remarks?: string | null;
-  created_date?: string | null;
-  updated_date?: string | null;
-  po_no?: string | null;
-  promise_date?: string | null;
-  planning_date?: string | null;
-  required_designs?: string | null;
-  product_type_id?: number | null;
-  gender_id?: number | null;
-  category_id?: number | null;
-  sub_category_id?: number | null;
-  brand_id?: number | null;
-  style_id?: number | null;
-  occasion_id?: number | null;
-  metal_type_id?: number | null;
-  metal_color_id?: number | null;
-  priority_id?: number | null;
-  is_item_received?: boolean | null;
-  customer_id?: number | null;
-  created_by?: number | null;
-  concept_id?: number | null;
-  job_id?: number | null;
-  version?: string | null;
-  sketcher_id?:
-    | {
-        id?: string | null;
-      }[]
-    | null;
-  opportunity_id?: number | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cadDesigns".
- */
-export interface CadDesign {
-  id: number;
-  orderName: string;
-  orderDate: string;
-  designerDetails: {
-    firstName: string;
-    lastName?: string | null;
-    designerID: number;
-  };
-  orderStatus: 'pending' | 'shipped' | 'delivered';
-  images?: (number | null) | Media;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "concepts".
- */
-export interface Concept {
-  id: number;
-  netsuite_id: number;
-  name: string;
-  description?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  created_date?: string | null;
-  updated_date?: string | null;
-  status: 'Initiated' | 'In Progress' | 'Completed' | 'Approved';
-  approval_notes?: string | null;
-  sketches_count: number;
-  cad_count: number;
-  renderings_count: number;
-  image_urls?:
-    | {
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  total_time_spent?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sketches".
- */
-export interface Sketch {
-  id: number;
-  netsuite_id: number;
-  task_id: string;
-  sketcher_id: string;
-  status: 'Initiated' | 'In Progress' | 'Completed' | 'Approved';
-  image_urls?:
-    | {
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  detailed_estimate?: {
-    gross_weight?: number | null;
-    net_weight?: number | null;
-    diamond_range?: string | null;
-    color_stones_count?: number | null;
-  };
-  time_spent?: string | null;
-  brand_id?: number | null;
-  designer_id?: number | null;
-  collection_id?: number | null;
-  category_id?: number | null;
-  sub_category_id?: number | null;
-  actual_design_complete_date?: string | null;
-  days_since_brief_date?: number | null;
-  user_id?: number | null;
-  customer_id?: number | null;
-  days_since_in_sketch?: number | null;
-  special_instructions?: string | null;
-  special_instructions_office_use?: boolean | null;
-  concept_id?: number | null;
-  moved_to_cad?: boolean | null;
-  approval_id?: number | null;
-  created_date?: string | null;
-  updated_date?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -907,30 +714,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
-      } | null)
-    | ({
-        relationTo: 'role';
-        value: number | Role;
-      } | null)
-    | ({
-        relationTo: 'product-designs';
-        value: string | ProductDesign;
-      } | null)
-    | ({
-        relationTo: 'cadDesigns';
-        value: number | CadDesign;
-      } | null)
-    | ({
-        relationTo: 'sideBar';
-        value: number | SideBar;
-      } | null)
-    | ({
-        relationTo: 'concepts';
-        value: number | Concept;
-      } | null)
-    | ({
-        relationTo: 'sketches';
-        value: number | Sketch;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1221,6 +1004,16 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
+        og?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
       };
 }
 /**
@@ -1256,180 +1049,6 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "role_select".
- */
-export interface RoleSelect<T extends boolean = true> {
-  name?: T;
-  netsuite_id?: T;
-  description?: T;
-  sideBarNavigations?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "product-designs_select".
- */
-export interface ProductDesignsSelect<T extends boolean = true> {
-  id?: T;
-  name?: T;
-  description?: T;
-  prodstatus?: T;
-  assigned_sketcher_id?: T;
-  assigned_designer_id?: T;
-  sketcher_notes?: T;
-  designer_notes?: T;
-  approval_notes?: T;
-  approved_by?: T;
-  netsuite_item_id?: T;
-  collection_id?: T;
-  collectiongroup_name?: T;
-  category_name?: T;
-  subcategory_name?: T;
-  brand_name?: T;
-  style_name?: T;
-  occasion?: T;
-  request_type?: T;
-  metal_type?: T;
-  metal_color?: T;
-  size?: T;
-  expected_gross_wt?: T;
-  expected_net_wt?: T;
-  diamond_range?: T;
-  color_stone_range?: T;
-  priority?: T;
-  remarks?: T;
-  created_date?: T;
-  updated_date?: T;
-  po_no?: T;
-  promise_date?: T;
-  planning_date?: T;
-  required_designs?: T;
-  product_type_id?: T;
-  gender_id?: T;
-  category_id?: T;
-  sub_category_id?: T;
-  brand_id?: T;
-  style_id?: T;
-  occasion_id?: T;
-  metal_type_id?: T;
-  metal_color_id?: T;
-  priority_id?: T;
-  is_item_received?: T;
-  customer_id?: T;
-  created_by?: T;
-  concept_id?: T;
-  job_id?: T;
-  version?: T;
-  sketcher_id?:
-    | T
-    | {
-        id?: T;
-      };
-  opportunity_id?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "cadDesigns_select".
- */
-export interface CadDesignsSelect<T extends boolean = true> {
-  orderName?: T;
-  orderDate?: T;
-  designerDetails?:
-    | T
-    | {
-        firstName?: T;
-        lastName?: T;
-        designerID?: T;
-      };
-  orderStatus?: T;
-  images?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sideBar_select".
- */
-export interface SideBarSelect<T extends boolean = true> {
-  name?: T;
-  link?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "concepts_select".
- */
-export interface ConceptsSelect<T extends boolean = true> {
-  netsuite_id?: T;
-  name?: T;
-  description?: T;
-  created_date?: T;
-  updated_date?: T;
-  status?: T;
-  approval_notes?: T;
-  sketches_count?: T;
-  cad_count?: T;
-  renderings_count?: T;
-  image_urls?:
-    | T
-    | {
-        url?: T;
-        id?: T;
-      };
-  total_time_spent?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "sketches_select".
- */
-export interface SketchesSelect<T extends boolean = true> {
-  netsuite_id?: T;
-  task_id?: T;
-  sketcher_id?: T;
-  status?: T;
-  image_urls?:
-    | T
-    | {
-        url?: T;
-        id?: T;
-      };
-  detailed_estimate?:
-    | T
-    | {
-        gross_weight?: T;
-        net_weight?: T;
-        diamond_range?: T;
-        color_stones_count?: T;
-      };
-  time_spent?: T;
-  brand_id?: T;
-  designer_id?: T;
-  collection_id?: T;
-  category_id?: T;
-  sub_category_id?: T;
-  actual_design_complete_date?: T;
-  days_since_brief_date?: T;
-  user_id?: T;
-  customer_id?: T;
-  days_since_in_sketch?: T;
-  special_instructions?: T;
-  special_instructions_office_use?: T;
-  concept_id?: T;
-  moved_to_cad?: T;
-  approval_id?: T;
-  created_date?: T;
-  updated_date?: T;
-  updatedAt?: T;
-  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
